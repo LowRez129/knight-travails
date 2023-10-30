@@ -11,6 +11,11 @@ function knightFactory (column, row) {
         const left = r - 2;
         const right = r + 2;
 
+        if ((up > 7) || down < 0 || (left < 0) || right > 7) {
+            console.log(up, down, left, right);
+            console.log("wtf");
+        }
+
         current_position = [c, r];
         up_left_right = [up, [left + 1, right - 1]];        //{up: (c + 2), left: (r - 1), right: (r + 1)};
         down_left_right = [down, [left + 1, right - 1]];    //{down: (c - 2), left: (r - 1), right: (r + 1)};
@@ -26,8 +31,16 @@ function knightFactory (column, row) {
     const getLeftUpDown = () => {return left_up_down};
     const getRightUpDown = () => {return right_up_down};
 
+    const printAttributes = () => {
+        console.log("Current Position: ", current_position);
+        console.log("UpLeftRight: ", up_left_right);
+        console.log("DownLeftRight:", down_left_right);
+        console.log("LeftUpDown: ",left_up_down);
+        console.log("RightUpDown: ", right_up_down);
+    }
+
     return {
-        getCurrentPosition, setPosition,
+        getCurrentPosition, setPosition, printAttributes,
         getUpLeftRight, getDownLeftRight, getLeftUpDown, getRightUpDown,
         
     };

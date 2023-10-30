@@ -1,9 +1,14 @@
 import {boardCreate} from './boardCreate.js';
 import {knightFactory} from './knightFactory.js';
 
-const board = boardCreate()
-const knight = knightFactory(7, 7);
-console.log(knight.getCurrentPosition());
-knight.setPosition(2, 2);
-console.log(knight.getCurrentPosition());
-//console.log(board[7][7]);
+function knightMoves (start = [0, 0], end = [0, 0]) {
+    const board = boardCreate()
+    const knight = knightFactory(start[0], start[1]);
+
+    knight.printAttributes();
+    //knight.setPosition(knight.getUpLeftRight()[0], knight.getUpLeftRight()[1][1]);
+    //knight.printAttributes();
+    //console.log(board[7][7]);
+}
+
+knightMoves([1, 1], [3, 5]);
