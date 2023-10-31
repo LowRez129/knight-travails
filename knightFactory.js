@@ -32,8 +32,8 @@ function knightFactory (position = null) {
         down_right = (x_right == null) ? null : [down, x_right];
         left_up = (y_up == null) ? null : [y_up, left];
         left_down = (y_down == null) ? null : [y_down, left];        
-        right_up = (y_up) ? null : [y_up, right];    
-        right_down = (y_down) ? null : [y_down, right];
+        right_up = (y_up == null) ? null : [y_up, right];    
+        right_down = (y_down == null) ? null : [y_down, right];
 
         if (up > 7) {up_left = null; up_right = null};
         if (down < 0) {down_left = null; down_right = null;};
@@ -55,7 +55,7 @@ function knightFactory (position = null) {
     const getRightUpDown = () => {return {right_up, right_down}};
 
     const printAttributes = () => {
-        console.log("Current Position: ", current_position);
+        console.log("Current Position    :", current_position);
         console.log("Up    - Left : Right:", up_left, up_right);
         console.log("Down  - Left : Right:", down_left, down_right);
         console.log("Left  - Up   : Down :",left_up, left_down);
