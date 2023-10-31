@@ -1,12 +1,13 @@
 function knightFactory (position = [0, 0]) {
+    if (position == null) {return [null,null]};
     let current_position = null;
     let up_left_right = null;
     let down_left_right = null;
     let left_up_down = null;
     let right_up_down = null;
 
-    const setPosition = (array) => {
-        if (array == null) {return console.log("Invalid Input")};
+    const setPosition = (array = [0, 0]) => {
+        if (array.toString() == [null, null]) {return console.log("Invalid Input")};
 
         const c = array[0];
         const r = array[1];
@@ -23,23 +24,21 @@ function knightFactory (position = [0, 0]) {
         up_left_right = [[up, x_left], [up, x_right]];        //{up: (c + 2), left: (r - 1), right: (r + 1)};
         down_left_right = [[down, x_left], [down, x_right]];    //{down: (c - 2), left: (r - 1), right: (r + 1)};
         left_up_down = [[y_up, left], [y_down, left]];          //{left: (c - 2), up: (r + 1), down: (r - 1)};
-        right_up_down = [[y_up, right], [y_down, right]];        //{right: (c + 2), up: (r + 1), down: (r - 1)}; 
+        right_up_down = [[y_up, right], [y_down, right]];      //{right: (c + 2), up: (r + 1), down: (r - 1)}; 
         
-        if (up > 7) {up_left_right = null};
-        if (down < 0) {down_left_right = null};
-        if (left < 0) {left_up_down = null};
-        if (right > 7) {right_up_down = null};
+        if (up > 7) {up_left_right = [null, null]};
+        if (down < 0) {down_left_right = [null, null]};
+        if (left < 0) {left_up_down = [null, null]};
+        if (right > 7) {right_up_down = [null, null]};
         
         const moves = [up_left_right, down_left_right, left_up_down, right_up_down];
         moves.forEach((child) => {
-            if (child == null) {return};
             child.forEach((element) => {
+                if (element == null) {return};
                 element.forEach((index) => {
                     if (index == null) {
                         const num_index = child.indexOf(element)
                         child[num_index] = null;
-                        //console.log();
-                        console.log(element);
                         return;
                     }
                 });
