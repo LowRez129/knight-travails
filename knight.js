@@ -11,4 +11,4 @@ function knightMoves (start = [0, 0], end = [0, 0]) {
     //console.log(board[7][7]);
 }
 
-knightMoves([0, 0], [3, 5]);
+knightMoves([0, 2], [3, 5]);

@@ -10,10 +10,10 @@ function knightFactory (column, row) {
         const down = c - 2;
         const left = r - 2;
         const right = r + 2;
-        const x_left = r - 1;
-        const x_right = r + 1;
-        const y_up = c + 1;
-        const y_down = c - 1;
+        const x_left = ((r - 1) < 0) ? null : r - 1;
+        const x_right = ((r + 1) > 7) ? null : r + 1;
+        const y_up = ((c + 1) > 7) ? null : c + 1;
+        const y_down = ((c - 1) < 0) ? null : c - 1;
 
         current_position = [c, r];
         up_left_right = [up, [x_left, x_right]];        //{up: (c + 2), left: (r - 1), right: (r + 1)};
@@ -21,9 +21,10 @@ function knightFactory (column, row) {
         left_up_down = [[y_up, y_down], left];          //{left: (c - 2), up: (r + 1), down: (r - 1)};
         right_up_down = [[y_up, y_down], right];        //{right: (c + 2), up: (r + 1), down: (r - 1)}; 
         
-        if (up > 7|| x_left < 0 || x_right > 7) {up_left_right = null};
-        if (down < 0 || x_left < 0 || x_right > 7) {down_left_right = null};
-        if (left < 0 || y_up > 7 || y_down < 0) {left_up_down = null};
+        
+        if (up > 7) {up_left_right = null};
+        if (down < 0) {down_left_right = null};
+        if (left < 0) {left_up_down = null};
         if (right > 7) {right_up_down = null};
     } 
 
