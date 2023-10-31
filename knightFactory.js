@@ -1,5 +1,5 @@
 function knightFactory (position = null) {
-    if (position == null) {return [null,null]};
+    if (position == null) {return null};
 
     let current_position = null;
     let up_left = null;
@@ -39,11 +39,6 @@ function knightFactory (position = null) {
         if (down < 0) {down_left = null; down_right = null;};
         if (left < 0) {left_up = null; left_down = null;};
         if (right > 7) {right_up = null; right_down = null;};
-
-        const MOVES = [
-            up_left, up_right, down_left, down_right, 
-            left_up, left_down, right_up, right_down
-        ];
     } 
 
     setPosition(position);
