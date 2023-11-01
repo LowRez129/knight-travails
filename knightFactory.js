@@ -44,10 +44,14 @@ function knightFactory (position = null) {
     setPosition(position);
 
     const getCurrentPosition = () => {return current_position};
-    const getUpLeftRight = () => {return {up_left, up_right}};
-    const getDownLeftRight = () => {return {down_left, down_right}};
-    const getLeftUpDown = () => {return {left_up, left_down}};
-    const getRightUpDown = () => {return {right_up, right_down}};
+    const getUpLeft = () => {return up_left};
+    const getUpRight = () => {return up_right};
+    const getDownLeft = () => {return down_left};
+    const getDownRight = () => {return down_right};
+    const getLeftUp = () => {return left_up};
+    const getLeftDown = () => {return left_down};
+    const getRightUp = () => {return right_up};
+    const getRightDown = () => {return right_down};
 
     const printAttributes = () => {
         console.log("Current Position    :", current_position);
@@ -59,7 +63,8 @@ function knightFactory (position = null) {
 
     return {
         getCurrentPosition, setPosition, printAttributes,
-        getUpLeftRight, getDownLeftRight, getLeftUpDown, getRightUpDown,
+        getUpLeft, getUpRight, getDownLeft, getDownRight,
+        getLeftUp, getLeftDown, getRightUp, getRightDown,
         
     };
 }

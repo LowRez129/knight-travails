@@ -1,29 +1,19 @@
-import {boardCreate} from './boardCreate.js';
+//import {boardCreate} from './boardCreate.js';
 import {knightFactory} from './knightFactory.js';
 
-function knightMoves (start = [0, 0], end = [7, 7]) {
+function moveTree(value = [0, 0]) {
+    if (value == null) {return};
+    const knight = knightFactory(value);
+    const node_UL = moveTree(knight.getUpLeft());
 
+    const getKnight = () => {return knight};
+    const getNode = () => {return node_UL};
+
+    return {getKnight, getNode};
 }
-
-function moveFactory (root = knightFactory()) {
-    const ULR = root.getUpLeftRight();
-    const DLR = root.getDownLeftRight();
-    const LUD = root.getLeftUpDown();
-    const RUD = root.getRightUpDown();
-
-    const up_left = knightFactory(ULR.up_left);
-    const up_right = knightFactory(ULR.up_right);
-    const down_left = knightFactory(DLR.down_left);
-    const down_right = knightFactory(DLR.down_right);
-    const left_up = knightFactory(LUD.left_up);
-    const left_down = knightFactory(LUD.left_down);
-    const right_up = knightFactory(RUD.right_up);
-    const right_down = knightFactory(RUD.right_down);
-
-    console.log(up_left);
-    console.log(up_right.printAttributes());
-}
-
-const knight = knightFactory([0, 0]);
-knight.printAttributes()
-moveFactory(knight);
+const TREE = moveTree([3, 3]);
+TREE.getKnight().printAttributes();
+console.log();
+TREE.getNode().getKnight().printAttributes();
+console.log();
+TREE.getNode().getNode().getKnight().printAttributes();
