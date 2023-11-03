@@ -5,24 +5,13 @@ function knightMove (start, end) {
     if (start.toString() == [null].toString()) {return};
     const knight = knightFactory(start);
     const end_string = end.toString();
-    const path = [];
+    const path = [[3, 3]];
     const move_queue = [];
 
     while (true) {
-        
-        if (knight.getCurrentPosition().toString() != [null]) {
-            path.push(knight.getCurrentPosition());
-        };
-
         move_queue.push(
-            knight.getUpLeft(),
-            knight.getUpRight(),
-            knight.getDownLeft(),
-            knight.getDownRight(),
-            knight.getLeftUp(),
-            knight.getLeftDown(),
-            knight.getRightUp(),
-            knight.getRightDown()
+            knight.getUpLeft(), knight.getUpRight(), knight.getDownLeft(), knight.getDownRight(),
+            knight.getLeftUp(), knight.getLeftDown(), knight.getRightUp(), knight.getRightDown()
         );   
 
         if (end_string == knight.getUpLeft()) {
@@ -62,10 +51,11 @@ function knightMove (start, end) {
         
         if (move_queue_pop.toString() != [null].toString()) {
             knight.setPosition(move_queue_pop);
+            if (knight.getCurrentPosition().toString() != [null]) {
+                path.push(knight.getCurrentPosition());
+            };
         };
     }
 }
 
-knightMove([0, 0], [3, 3]);
-
-
+knightMove([3, 3], [7, 2]);
