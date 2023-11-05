@@ -5,7 +5,7 @@ function knightMove (start, end) {
     if (start.toString() == [null].toString()) {return};
     const knight = knightFactory(start);
     const end_string = end.toString();
-    const path = [[3, 3]];
+    const path = [start];
     const move_queue = [];
 
     while (true) {
@@ -39,4 +39,4 @@ function knightMove (start, end) {
     }
 }
 
-knightMove([3, 3], [7, 2]);
+knightMove([0, 0], [0, 1]);
