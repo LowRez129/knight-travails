@@ -1,42 +1,53 @@
 //import {boardCreate} from './boardCreate.js';
 import {knightFactory} from './knightFactory.js';
+import { edgeFactory } from './edgeFactory.js';
+
 
 function knightMove (start, end) {
-    if (start.toString() == [null].toString()) {return};
+    if (start == [null].toString()) {return null};
     const knight = knightFactory(start);
-    const end_string = end.toString();
-    const path = [start];
     const move_queue = [];
-
-    while (true) {
-        const move_check = [];
-        move_check.push(
+    const edgelist = [];
+    
+    let count = 0;
+    let current;
+    while (current != end.toString()) {
+        const move = [
             knight.getUpLeft(), knight.getUpRight(), knight.getDownLeft(), knight.getDownRight(),
             knight.getLeftUp(), knight.getLeftDown(), knight.getRightUp(), knight.getRightDown()
-        );
+        ];
 
-        for (let i = 0; i < 7; i++) {
-            if (move_check[i] == end.toString()) {
-                path.push(move_check[i]);
-                console.log(path);
-                return;
-            }
-        }
-
-        move_queue.push(
-            knight.getUpLeft(), knight.getUpRight(), knight.getDownLeft(), knight.getDownRight(),
-            knight.getLeftUp(), knight.getLeftDown(), knight.getRightUp(), knight.getRightDown()
-        );
-        
-        const move_queue_pop = move_queue.shift();
-        
-        if (move_queue_pop.toString() != [null].toString()) {
-            knight.setPosition(move_queue_pop);
-            if (knight.getCurrentPosition().toString() != [null]) {
-                path.push(knight.getCurrentPosition());
+        move.forEach((element) => {
+            const index = move.indexOf(element);
+            for (let i in move_queue) {
+                if (move_queue[i] == element.toString()) {
+                    move.splice(index, 1);
+                };
             };
-        };
+
+        });
+
+        move.forEach((element) => {
+            if (element != [null].toString()) {
+                const vertices = edgeFactory(knight.getCurrentPosition(), element);
+                edgelist.push(vertices);
+                move_queue.push(element);
+            };
+        });
+
+        const move_queue_shift = move_queue[count];
+        knight.setPosition(move_queue_shift);
+        current = move_queue_shift;
+        count++;
     }
+
+    console.log(move_queue);
+    console.log(edgelist);
+    return {move_queue, edgelist};
 }
 
-knightMove([0, 0], [0, 1]);
+const TREE = knightMove([0, 0], [3, 3]);
+
+function breathFirstSearch () {
+
+}
