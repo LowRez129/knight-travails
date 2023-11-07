@@ -11,11 +11,20 @@ function knightMove (start, end) {
     
     let count = 0;
     let current;
-    while (current != end.toString()) {
+    while (true) {
         const move = [
             knight.getUpLeft(), knight.getUpRight(), knight.getDownLeft(), knight.getDownRight(),
             knight.getLeftUp(), knight.getLeftDown(), knight.getRightUp(), knight.getRightDown()
         ];
+
+        for (let i in move) {
+            if (move[i] == end.toString()) {
+                move_queue.splice(edgelist.length, move_queue.length);
+                console.log(move_queue);
+                console.log(edgelist);
+                return {move_queue, edgelist};
+            };
+        }
 
         move.forEach((element) => {
             const index = move.indexOf(element);
@@ -44,25 +53,19 @@ function knightMove (start, end) {
         current = move_queue_shift;
         count++;
     }
-
-    move_queue.splice(edgelist.length, move_queue.length);
-    console.log(move_queue);
-    console.log(edgelist);
-    return {move_queue, edgelist};
 }
 
-const TREE = knightMove([0, 0], [3, 3]);
+const start = [0, 0];
+const end = [6, 1];
+const TREE = knightMove(start, end);
 
-function breathFirstSearch (list = TREE.edgelist, end) {
-    list.forEach((item) => {
-        item.forEach((element) => {
-            if (element == end.toString()) {
-                const index = list.indexOf(item);
-                console.log(index);
-                return;
-            };
-        });
-    }); 
+function linkedList (vertices, index = 0) {
+    //console.log(vertices.length)
+    if (vertices.length == index) {return null};
+    const value = vertices[index];
+    const link = linkedList(vertices, index + 1);
+
+    return {value, link};
 }
 
-breathFirstSearch(TREE.edgelist, [1, 0]);
+
