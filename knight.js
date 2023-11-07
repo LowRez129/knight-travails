@@ -6,7 +6,7 @@ import { edgeFactory } from './edgeFactory.js';
 function knightMove (start, end) {
     if (start == [null].toString()) {return null};
     const knight = knightFactory(start);
-    const move_queue = [];
+    const move_queue = [start];
     const edgelist = [];
     
     let count = 0;
@@ -27,13 +27,17 @@ function knightMove (start, end) {
 
         });
 
+        let positions = [];
         move.forEach((element) => {
             if (element != [null].toString()) {
-                const vertices = edgeFactory(knight.getCurrentPosition(), element);
-                edgelist.push(vertices);
+                //const vertices = edgeFactory(knight.getCurrentPosition(), element);
+                //edgelist.push(vertices);
+                positions.push(element);
                 move_queue.push(element);
             };
         });
+        if (positions != [null].toString()) {edgelist.push(positions)};
+        
 
         const move_queue_shift = move_queue[count];
         knight.setPosition(move_queue_shift);
@@ -41,6 +45,7 @@ function knightMove (start, end) {
         count++;
     }
 
+    move_queue.splice(edgelist.length, move_queue.length);
     console.log(move_queue);
     console.log(edgelist);
     return {move_queue, edgelist};
@@ -48,6 +53,16 @@ function knightMove (start, end) {
 
 const TREE = knightMove([0, 0], [3, 3]);
 
-function breathFirstSearch () {
-
+function breathFirstSearch (list = TREE.edgelist, end) {
+    list.forEach((item) => {
+        item.forEach((element) => {
+            if (element == end.toString()) {
+                const index = list.indexOf(item);
+                console.log(index);
+                return;
+            };
+        });
+    }); 
 }
+
+breathFirstSearch(TREE.edgelist, [1, 0]);
