@@ -18,6 +18,16 @@ function knightMove (start, end) {
         ];
 
         move.forEach((element) => {
+            const index = move.indexOf(element);
+            for (let i in move_queue) {
+                if (move_queue[i] == element.toString()) {
+                    move.splice(index, 1);
+                };
+            };
+
+        });
+
+        move.forEach((element) => {
             if (element != [null].toString()) {
                 const vertices = edgeFactory(knight.getCurrentPosition(), element);
                 edgelist.push(vertices);
