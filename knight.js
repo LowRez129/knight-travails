@@ -1,5 +1,6 @@
 //import {boardCreate} from './boardCreate.js';
 import {knightFactory} from './knightFactory.js';
+import { edgeFactory } from './edgeFactory.js';
 
 
 function knightMove (start, end) {
@@ -18,7 +19,8 @@ function knightMove (start, end) {
 
         move.forEach((element) => {
             if (element != [null].toString()) {
-                edgelist.push([count, element]);
+                const vertices = edgeFactory(knight.getCurrentPosition(), element);
+                edgelist.push(vertices);
                 move_queue.push(element);
             };
         });
@@ -31,6 +33,11 @@ function knightMove (start, end) {
 
     console.log(move_queue);
     console.log(edgelist);
+    return {move_queue, edgelist};
 }
 
 const TREE = knightMove([0, 0], [3, 3]);
+
+function breathFirstSearch () {
+
+}
