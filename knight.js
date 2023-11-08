@@ -1,6 +1,7 @@
 //import {boardCreate} from './boardCreate.js';
 import {knightFactory} from './knightFactory.js';
 import { edgeFactory } from './edgeFactory.js';
+import { linkedList } from './linkedList.js';
 
 
 function knightMove (start, end) {
@@ -8,6 +9,7 @@ function knightMove (start, end) {
     const knight = knightFactory(start);
     const move_queue = [start];
     const edgelist = [];
+    const move_nodes = [];
     
     let count = 0;
     while (true) {
@@ -57,20 +59,15 @@ function knightMove (start, end) {
         count++;
     }
 
-    return {move_queue, edgelist};
+    for (let i in move_queue) {
+        const node = linkedList(edgelist[i]);
+        move_nodes.push(node);
+    }
+
+    return {move_queue, edgelist, move_nodes};
 }
 
 const start = [0, 0];
-const end = [3, 3];
+const end = [6, 1];
 const TREE = knightMove(start, end);
-
-function linkedList (vertices, index = 0) {
-    //console.log(vertices.length)
-    if (vertices.length == index) {return null};
-    const value = vertices[index];
-    const link = linkedList(vertices, index + 1);
-
-    return {value, link};
-}
-
-
+console.log(TREE.move_nodes);
