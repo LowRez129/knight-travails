@@ -10,8 +10,8 @@ function knightMove (start, end) {
     const edgelist = [];
     
     let count = 0;
-    let current;
     while (true) {
+        let exit = false;
         const move = [
             knight.getUpLeft(), knight.getUpRight(), knight.getDownLeft(), knight.getDownRight(),
             knight.getLeftUp(), knight.getLeftDown(), knight.getRightUp(), knight.getRightDown()
@@ -22,15 +22,19 @@ function knightMove (start, end) {
                 move_queue.splice(edgelist.length, move_queue.length);
                 console.log(move_queue);
                 console.log(edgelist);
-                return {move_queue, edgelist};
+                exit = true;
+                break;
             };
         }
+        if (exit == true) {break};
 
         move.forEach((element) => {
             const index = move.indexOf(element);
             for (let i in move_queue) {
                 if (move_queue[i] == element.toString()) {
                     move.splice(index, 1);
+
+                    break;
                 };
             };
 
@@ -50,13 +54,14 @@ function knightMove (start, end) {
 
         const move_queue_shift = move_queue[count];
         knight.setPosition(move_queue_shift);
-        current = move_queue_shift;
         count++;
     }
+
+    return {move_queue, edgelist};
 }
 
 const start = [0, 0];
-const end = [6, 1];
+const end = [3, 3];
 const TREE = knightMove(start, end);
 
 function linkedList (vertices, index = 0) {
