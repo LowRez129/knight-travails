@@ -72,7 +72,7 @@ const end = [0, 1];
 const TREE = knightMove(start, end);
 
 const path = [];
-function breadthFirstSearch (node, end, index = 0) {
+function breadthFirstSearch (node, end, root) {
     if (node == null) {return null};
     const positions = knightFactory(node.value);
     const edges = [
@@ -81,15 +81,23 @@ function breadthFirstSearch (node, end, index = 0) {
     ]
     for (let i in edges) {
         if (edges[i] == end.toString()) {
-            return console.log(path.unshift(TREE.move_nodes.indexOf(node)))
+            const index = TREE.move_nodes.indexOf(root);
+            path.unshift(index);
+            return;
         };
     }
 
-    breadthFirstSearch(node.link, end);
+    breadthFirstSearch(node.link, end, root);
 }
 
 for (let num in TREE.move_queue) {
-    breadthFirstSearch(TREE.move_nodes[num], end);
+    breadthFirstSearch(TREE.move_nodes[num], end, TREE.move_nodes[num]);
 }
 
-console.log(path, "this");
+console.log(start)
+for (let num in path) {
+    const index = path[num];
+    const step = TREE.move_queue[index];
+    console.log(step);
+}
+console.log(end);
