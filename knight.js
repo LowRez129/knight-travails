@@ -22,8 +22,6 @@ function knightMove (start, end) {
         for (let i in move) {
             if (move[i] == end.toString()) {
                 move_queue.splice(edgelist.length, move_queue.length);
-                console.log(move_queue);
-                console.log(edgelist);
                 exit = true;
                 break;
             };
@@ -35,7 +33,6 @@ function knightMove (start, end) {
             for (let i in move_queue) {
                 if (move_queue[i] == element.toString()) {
                     move.splice(index, 1);
-
                     break;
                 };
             };
@@ -45,8 +42,6 @@ function knightMove (start, end) {
         let positions = [];
         move.forEach((element) => {
             if (element != [null].toString()) {
-                //const vertices = edgeFactory(knight.getCurrentPosition(), element);
-                //edgelist.push(vertices);
                 positions.push(element);
                 move_queue.push(element);
             };
@@ -63,11 +58,38 @@ function knightMove (start, end) {
         const node = linkedList(edgelist[i]);
         move_nodes.push(node);
     }
+    /*
+    console.log(move_queue);
+    console.log(edgelist);
+    console.log(move_nodes);
+    */
 
     return {move_queue, edgelist, move_nodes};
 }
 
 const start = [0, 0];
-const end = [6, 1];
+const end = [0, 1];
 const TREE = knightMove(start, end);
-console.log(TREE.move_nodes);
+
+const path = [];
+function breadthFirstSearch (node, end, index = 0) {
+    if (node == null) {return null};
+    const positions = knightFactory(node.value);
+    const edges = [
+        positions.getUpLeft(), positions.getUpRight(), positions.getDownLeft(), positions.getDownRight(),
+        positions.getLeftUp(), positions.getLeftDown(), positions.getRightUp(), positions.getRightDown()
+    ]
+    for (let i in edges) {
+        if (edges[i] == end.toString()) {
+            return console.log(path.unshift(TREE.move_nodes.indexOf(node)))
+        };
+    }
+
+    breadthFirstSearch(node.link, end);
+}
+
+for (let num in TREE.move_queue) {
+    breadthFirstSearch(TREE.move_nodes[num], end);
+}
+
+console.log(path, "this");
