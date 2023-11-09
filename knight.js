@@ -58,22 +58,19 @@ function knightMove (start, end) {
         const node = linkedList(edgelist[i]);
         move_nodes.push(node);
     }
-    /*
+    
     console.log(move_queue);
-    console.log(edgelist);
     console.log(move_nodes);
-    */
 
     return {move_queue, edgelist, move_nodes};
 }
 
 const start = [0, 0];
-const end = [0, 1];
+const end = [7, 7];
 const TREE = knightMove(start, end);
 
-const path = [];
-function breadthFirstSearch (node, end, root) {
-    if (node == null) {return null};
+function breadthFirstSearch (node, end) {
+    if (node == null) {return};
     const positions = knightFactory(node.value);
     const edges = [
         positions.getUpLeft(), positions.getUpRight(), positions.getDownLeft(), positions.getDownRight(),
@@ -81,23 +78,15 @@ function breadthFirstSearch (node, end, root) {
     ]
     for (let i in edges) {
         if (edges[i] == end.toString()) {
-            const index = TREE.move_nodes.indexOf(root);
-            path.unshift(index);
-            return;
+            console.log(node.value)
+            return true;
         };
     }
 
-    breadthFirstSearch(node.link, end, root);
+    return breadthFirstSearch(node.link, end);
 }
 
 for (let num in TREE.move_queue) {
-    breadthFirstSearch(TREE.move_nodes[num], end, TREE.move_nodes[num]);
+    const check = breadthFirstSearch(TREE.move_nodes[num], end, TREE.move_nodes[num]);
+    if (check == true) {break};
 }
-
-console.log(start)
-for (let num in path) {
-    const index = path[num];
-    const step = TREE.move_queue[index];
-    console.log(step);
-}
-console.log(end);
